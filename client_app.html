@@ -19,7 +19,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .login-logo{font-size:24px;font-weight:800;color:var(--accent);margin-bottom:4px}
 .login-sub{color:var(--muted);font-size:13px;margin-bottom:28px}
 .lbl{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
-.inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:15px;outline:none;transition:border .15s;margin-bottom:16px;font-family:inherit}
+.inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:15px;outline:none;margin-bottom:16px;font-family:inherit;box-sizing:border-box}
 .inp:focus{border-color:var(--accent)}
 .btn-main{width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
 .btn-main:hover{background:var(--accent2)}
@@ -64,6 +64,8 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .weight-input-wrap{display:flex;align-items:center;gap:10px;margin-top:8px}
 .weight-inp{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--text);font-size:20px;font-weight:800;width:110px;text-align:center;outline:none}
 .weight-inp:focus{border-color:var(--accent)}
+
+/* EJERCICIOS */
 .ex-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px}
 .ex-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
 .video-thumb{width:80px;height:52px;border-radius:8px;overflow:hidden;flex-shrink:0;cursor:pointer;position:relative;background:var(--bg4)}
@@ -93,6 +95,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .ex-done-btn{width:100%;background:var(--bg4);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:9px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
 .ex-done-btn.completed{background:#4ade8018;border-color:var(--green);color:var(--green)}
 .tonelaje-tag{font-size:11px;color:var(--accent);font-weight:700;margin-top:2px;margin-bottom:10px;text-align:right;min-height:14px}
+
 /* WARMUP */
 .warmup-toggle{display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;cursor:pointer;margin-bottom:12px;transition:all .15s}
 .warmup-toggle:hover{border-color:var(--accent)}
@@ -111,6 +114,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .warmup-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-left:auto}
 .warmup-check.done{background:var(--green);border-color:var(--green)}
 .warmup-check.done::after{content:'✓';color:#111;font-size:12px;font-weight:800}
+
 .meal-card{background:var(--bg3);border-radius:10px;padding:14px;margin-bottom:10px;display:flex;gap:12px}
 .meal-icon{width:40px;height:40px;border-radius:9px;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .meal-name{font-size:14px;font-weight:800}
@@ -136,7 +140,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .mcal-day.done{background:#4ade8018;color:var(--green);border-color:#4ade8030}
 .mcal-day.partial{background:#fbbf2418;color:var(--yellow)}
 .mcal-day.missed{background:#f8717118;color:var(--red)}
-.mcal-day.today{border-color:var(--accent)!important;color:var(--accent)}
+.mcal-day.today{border-color:var(--accent)!important}
 .month-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 .ms-cell{background:var(--bg3);border-radius:10px;padding:12px;text-align:center}
 .ms-val{font-size:20px;font-weight:800;color:var(--accent)}
@@ -284,6 +288,11 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
         <div class="ms-cell"><div class="ms-val" id="ms-peso">—</div><div class="ms-lab">⚖️ Peso actual</div></div>
       </div>
     </div>
+    <div class="card">
+      <div class="card-title">🏋️ Tonelaje total de hoy</div>
+      <div style="font-size:30px;font-weight:800;color:var(--accent);text-align:center" id="tonelaje-hoy">— kg</div>
+      <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:4px;font-weight:600">Peso × repeticiones de todas las series completadas</div>
+    </div>
   </div>
 
   <div id="tab-perfil" class="scroll-area" style="display:none">
@@ -300,7 +309,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
     </div>
     <div class="card">
       <div class="card-title">💬 Mensaje a tu entrenador</div>
-      <textarea id="msg-entrenador" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-size:14px;resize:none;outline:none;min-height:80px;font-family:inherit" placeholder="Contale cómo te sentiste, si tuviste alguna molestia..."></textarea>
+      <textarea id="msg-entrenador" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-size:14px;resize:none;outline:none;min-height:80px;font-family:inherit;box-sizing:border-box" placeholder="Contale cómo te sentiste, si tuviste alguna molestia..."></textarea>
       <button class="btn-save" style="width:100%;margin-top:10px" onclick="sendMessage()">📨 Enviar mensaje</button>
       <div id="msg-sent" style="display:none;margin-top:8px;color:var(--green);font-size:13px;font-weight:700;text-align:center">✅ Mensaje enviado</div>
     </div>
@@ -333,13 +342,11 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
   </div>
 </div>
 
-<!-- Firebase CDN (compat — funciona sin módulos) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <script>
-// ─── FIREBASE CONFIG — pegá el tuyo acá ──────────────────────
-const firebaseConfig = {
+var firebaseConfig = {
   apiKey:            "AIzaSyAQRdPiCv-Ilq5SoaJi8rMbYXlOpJx39kA",
   authDomain:        "coach-app-8810f.firebaseapp.com",
   projectId:         "coach-app-8810f",
@@ -347,20 +354,18 @@ const firebaseConfig = {
   messagingSenderId: "789302208457",
   appId:             "1:789302208457:web:166931ec7b125d672cea18"
 };
-// ─────────────────────────────────────────────────────────────
 
-// DEMO — funciona sin Firebase
-const DEMO = {
+var DEMO = {
   lucas:{
     pass:'1234',nombre:'Lucas González',objetivo:'Masa muscular',pesoInicial:74,entrenador:'Marcos R.',
     ejercicios:[
-      {nombre:'Press de banca plano',       series:5, reps:'5 — pesado',     videoId:'YasvG2ndBYw', notas:'Último set al fallo',  pesoRef:80},
-      {nombre:'Press inclinado mancuernas', series:4, reps:'6/8/10/12',      videoId:'9fy0A5xWsgk', notas:'Pirámide inversa',      pesoRef:32},
-      {nombre:'Fondos en paralelas',        series:3, reps:'Al fallo',       videoId:'BX88XAo-sa4', notas:'Bajada 3 seg',          pesoRef:null},
-      {nombre:'Remo con barra',             series:4, reps:'6-8 explosivo',  videoId:'ztFJOZQO2vQ', notas:'Pausa 1 seg arriba',   pesoRef:90},
-      {nombre:'Dominadas supinas',          series:3, reps:'Al fallo',       videoId:'YZ-QM6siUyI', notas:'Negativo 4 seg',        pesoRef:null},
-      {nombre:'Elevaciones laterales',      series:4, reps:'15/12/10/8',     videoId:'TP6P8-gojO8', notas:'Drop set al final',     pesoRef:14},
-      {nombre:'Press militar mancuernas',   series:3, reps:'10-12',          videoId:'qEwKCR5JCog', notas:'Codos a 45°',           pesoRef:24},
+      {nombre:'Press de banca plano',       series:5,reps:'5 — pesado',     videoId:'YasvG2ndBYw',notas:'Último set al fallo',pesoRef:80},
+      {nombre:'Press inclinado mancuernas', series:4,reps:'6/8/10/12',      videoId:'9fy0A5xWsgk',notas:'Pirámide inversa',pesoRef:32},
+      {nombre:'Fondos en paralelas',        series:3,reps:'Al fallo',       videoId:'BX88XAo-sa4',notas:'Bajada 3 seg',pesoRef:null},
+      {nombre:'Remo con barra',             series:4,reps:'6-8 explosivo',  videoId:'ztFJOZQO2vQ',notas:'Pausa 1 seg arriba',pesoRef:90},
+      {nombre:'Dominadas supinas',          series:3,reps:'Al fallo',       videoId:'YZ-QM6siUyI',notas:'Negativo 4 seg',pesoRef:null},
+      {nombre:'Elevaciones laterales',      series:4,reps:'15/12/10/8',     videoId:'TP6P8-gojO8',notas:'Drop set al final',pesoRef:14},
+      {nombre:'Press militar mancuernas',   series:3,reps:'10-12',          videoId:'qEwKCR5JCog',notas:'Codos a 45°',pesoRef:24},
     ],
     comidas:[
       {comida:'🌅 Desayuno',    alimentos:'Avena 80g + Whey + Banana',          kcal:520},
@@ -372,14 +377,21 @@ const DEMO = {
   }
 };
 
-// ─── ESTADO ──────────────────────────────────────────────────
-let db=null, currentUser=null;
-let checks={rutina:false,peso:false,agua:false,dieta:false,descanso:false,suplementos:false};
-let waterCount=0, pesosEj={};
-let calMonth=new Date().getMonth(), calYear=new Date().getFullYear();
-const todayStr=new Date().toISOString().split('T')[0];
+var WARMUP_DEMO = [
+  {nombre:'Cinta o bici — 5 min suave', icon:'🚴', meta:'5 min · ritmo bajo'},
+  {nombre:'Movilidad de hombros', icon:'🔄', meta:'2 series x 15 reps'},
+  {nombre:'Press de banca — series de aproximación', icon:'🏋️', meta:'Vacío → 40% → 60% → 80% del peso de trabajo'}
+];
+var warmupOpen = false;
+var warmupChecks = {};
 
-// Init Firebase si el config es real
+var db=null, currentUser=null;
+var checks={rutina:false,peso:false,agua:false,dieta:false,descanso:false,suplementos:false};
+var waterCount=0;
+var registroEjercicios = {};
+var calMonth=new Date().getMonth(), calYear=new Date().getFullYear();
+var todayStr=new Date().toISOString().split('T')[0];
+
 try {
   if(firebaseConfig.apiKey !== 'TU_API_KEY'){
     firebase.initializeApp(firebaseConfig);
@@ -387,24 +399,21 @@ try {
   }
 } catch(e){ console.log('Firebase no configurado'); }
 
-// ─── LOGIN ───────────────────────────────────────────────────
 function doLogin(){
-  const u=document.getElementById('inp-user').value.trim().toLowerCase();
-  const p=document.getElementById('inp-pass').value;
+  var u=document.getElementById('inp-user').value.trim().toLowerCase();
+  var p=document.getElementById('inp-pass').value;
   document.getElementById('login-err').style.display='none';
 
-  // Demo instantáneo
   if(DEMO[u] && DEMO[u].pass===p){
     currentUser={usuario:u,...DEMO[u]};
     startApp();
     return;
   }
 
-  // Firebase
   if(!db){ document.getElementById('login-err').style.display='block'; return; }
-  const btn=document.getElementById('btn-login');
+  var btn=document.getElementById('btn-login');
   btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Ingresando...';
-  db.collection('clientes').doc(u).get().then(snap=>{
+  db.collection('clientes').doc(u).get().then(function(snap){
     if(snap.exists && snap.data().pass===p && snap.data().activo){
       currentUser={usuario:u,...snap.data()};
       startApp();
@@ -412,22 +421,21 @@ function doLogin(){
       document.getElementById('login-err').style.display='block';
     }
     btn.disabled=false; btn.innerHTML='Ingresar 🚀';
-  }).catch(()=>{ document.getElementById('login-err').textContent='❌ Error de conexión'; document.getElementById('login-err').style.display='block'; btn.disabled=false; btn.innerHTML='Ingresar 🚀'; });
+  }).catch(function(){ document.getElementById('login-err').textContent='❌ Error de conexión'; document.getElementById('login-err').style.display='block'; btn.disabled=false; btn.innerHTML='Ingresar 🚀'; });
 }
-document.getElementById('inp-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
-document.getElementById('inp-user').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('inp-pass').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
+document.getElementById('inp-user').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
 
-// ─── START APP ───────────────────────────────────────────────
 function startApp(){
-  const c=currentUser;
-  const ini=c.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  var c=currentUser;
+  var ini=c.nombre.split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').style.display='flex';
   document.getElementById('user-avatar').textContent=ini;
   document.getElementById('greeting-name').textContent='Hola, '+c.nombre.split(' ')[0]+' 👋';
-  const dias=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
-  const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  const hoy=new Date();
+  var dias=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  var meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var hoy=new Date();
   document.getElementById('greeting-date').textContent=dias[hoy.getDay()]+' '+hoy.getDate()+' de '+meses[hoy.getMonth()];
   document.getElementById('perf-avatar').textContent=ini;
   document.getElementById('perf-nombre').textContent=c.nombre;
@@ -436,25 +444,38 @@ function startApp(){
   document.getElementById('perf-pesoinicial').textContent=(c.pesoInicial||'—')+' kg';
   document.getElementById('perf-entrenador').textContent=c.entrenador;
   initWater();
+  setSyncStatus('syncing','Sincronizando...');
 
-  // Carga demo primero
-  const demo=DEMO[c.usuario];
-  if(demo){ renderRutina(demo.ejercicios); renderDieta(demo.comidas); }
-  setSyncStatus('ok','📴 Modo demo');
-
-  // Luego Firebase si está configurado
   if(db){
-    setSyncStatus('syncing','Sincronizando...');
-    Promise.all([
-      db.collection('rutinas').where('usuario','==',c.usuario).get(),
-      db.collection('dietas').where('usuario','==',c.usuario).get(),
-      db.collection('tracking').doc(c.usuario+'_'+todayStr).get()
-    ]).then(([rSnap,dSnap,tSnap])=>{
-      if(!rSnap.empty) renderRutina(rSnap.docs.map(d=>d.data()));
-      if(!dSnap.empty) renderDieta(dSnap.docs.map(d=>d.data()).filter(d=>d.comida!=='__macros__'));
-      if(tSnap.exists) restoreTrack(tSnap.data());
+    db.collection('rutinas').where('usuario','==',c.usuario).onSnapshot(function(snap){
+      if(!snap.empty){
+        var ejs=snap.docs.map(function(d){return d.data();});
+        ejs.sort(function(a,b){return (a.dia||'').localeCompare(b.dia||'');});
+        renderRutina(ejs);
+      } else {
+        var demo=DEMO[c.usuario];
+        renderRutina(demo ? demo.ejercicios : []);
+      }
       setSyncStatus('ok','✅ Sincronizado');
-    }).catch(()=>setSyncStatus('ok','📴 Modo demo'));
+    }, function(){ setSyncStatus('ok','📴 Modo demo'); });
+
+    db.collection('dietas').where('usuario','==',c.usuario).onSnapshot(function(snap){
+      if(!snap.empty){
+        var comidas=snap.docs.map(function(d){return d.data();}).filter(function(d){return d.comida!=='__macros__';});
+        if(comidas.length) renderDieta(comidas);
+      } else {
+        var demo=DEMO[c.usuario];
+        if(demo) renderDieta(demo.comidas);
+      }
+    });
+
+    db.collection('tracking').doc(c.usuario+'_'+todayStr).get().then(function(tSnap){
+      if(tSnap.exists) restoreTrack(tSnap.data());
+    });
+  } else {
+    var demo=DEMO[c.usuario];
+    if(demo){ renderRutina(demo.ejercicios); renderDieta(demo.comidas); }
+    setSyncStatus('ok','📴 Modo demo');
   }
   buildCalendar();
 }
@@ -463,6 +484,7 @@ function setSyncStatus(t,msg){
   document.getElementById('sync-dot').className='sync-dot'+(t==='syncing'?' syncing':'');
   document.getElementById('sync-text').textContent=msg;
 }
+
 function restoreTrack(t){
   if(t.peso){document.getElementById('weight-val').value=t.peso;document.getElementById('weight-saved').style.display='block';setChk('peso',true);}
   if(t.agua){waterCount=Number(t.agua);updateWaterUI();if(waterCount>=8)setChk('agua',true);}
@@ -470,93 +492,173 @@ function restoreTrack(t){
   if(t.dieta)setChk('dieta',true);
   if(t.descanso)setChk('descanso',true);
   if(t.suplementos)setChk('suplementos',true);
+  if(t.registroEjercicios){ try{ registroEjercicios=JSON.parse(t.registroEjercicios); }catch(e){} }
+  if(t.tonelajeTotal) document.getElementById('tonelaje-hoy').textContent=Number(t.tonelajeTotal).toLocaleString('es-AR')+' kg';
   updateProgress();
 }
 
-// ─── RUTINA ──────────────────────────────────────────────────
-function renderRutina(ejs){
-  const c=document.getElementById('ejercicios-container');
-  document.getElementById('rutina-header').textContent='🏋️ Rutina del día · Cargá los pesos';
-  c.innerHTML='';
-  if(!ejs?.length){
-    c.innerHTML='<div style="text-align:center;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:40px 20px"><div style="font-size:40px;margin-bottom:12px">😴</div><div style="font-weight:800;font-size:16px;margin-bottom:8px">Sin rutina asignada</div><div style="color:var(--muted);font-size:13px">Tu entrenador todavía no cargó tu rutina.<br>Avisale por el chat en Perfil.</div></div>';
-    return;
-  }
-  ejs.forEach((ej,idx)=>{
-    const s=Number(ej.series)||3;
-    let celdas='';
-    for(let i=0;i<4;i++){
-      const dis=i>=s;
-      celdas+=`<div class="serie-cell"${dis?' style="opacity:.25"':''}><div class="serie-num">${i<s?'S'+(i+1):'—'}</div><input class="serie-inp" type="number" placeholder="${dis?'—':'kg'}" data-ej="${idx}" data-s="${i}"${dis?' disabled':''}><div class="serie-tag">${i<s?'peso':''}</div></div>`;
-    }
-    const thumb=ej.videoId
-      ?`<div class="video-thumb" onclick="openVideo('${ej.videoId}','${ej.nombre}')"><img src="https://img.youtube.com/vi/${ej.videoId}/hqdefault.jpg" onerror="this.parentNode.classList.add('no-video');this.parentNode.innerHTML='▶️'"><div class="play-overlay"><div class="play-icon">▶</div></div></div>`
-      :`<div class="video-thumb no-video">📷</div>`;
-    c.innerHTML+=`<div class="ex-card"><div class="ex-header">${thumb}<div style="flex:1"><div class="ex-name">${ej.nombre}</div><div class="ex-meta">📊 ${s} series · 🔁 ${ej.reps}${ej.notas?' · '+ej.notas:''}</div></div></div><div class="series-grid">${celdas}</div><button class="ex-done-btn" onclick="markExDone(this,${idx})">✓ Marcar como completo</button></div>`;
-  });
-  c.querySelectorAll('.serie-inp').forEach(inp=>{
-    inp.addEventListener('change',()=>{if(!pesosEj[inp.dataset.ej])pesosEj[inp.dataset.ej]={};pesosEj[inp.dataset.ej][inp.dataset.s]=inp.value;});
-  });
+function renderWarmup(){
+  var el = document.getElementById('warmup-section');
+  if(!el) return;
+  var doneCount = Object.values(warmupChecks).filter(Boolean).length;
+  el.innerHTML = '<div class="warmup-toggle" onclick="toggleWarmup()">'
+    + '<div class="warmup-toggle-left"><span class="warmup-icon">🔥</span><div><div class="warmup-title">Calentamiento</div><div class="warmup-sub">'+doneCount+' de '+WARMUP_DEMO.length+' completados · opcional pero recomendado</div></div></div>'
+    + '<span class="warmup-chevron'+(warmupOpen?' open':'')+'">▼</span>'
+    + '</div>'
+    + '<div class="warmup-content'+(warmupOpen?' open':'')+'" id="warmup-content">'
+    + WARMUP_DEMO.map(function(w,i){
+        var done = warmupChecks[i];
+        return '<div class="warmup-ex"><div class="warmup-ex-icon">'+w.icon+'</div><div><div class="warmup-ex-name">'+w.nombre+'</div><div class="warmup-ex-meta">'+w.meta+'</div></div><div class="warmup-check'+(done?' done':'')+'" onclick="toggleWarmupCheck('+i+')"></div></div>';
+      }).join('')
+    + '</div>';
+}
+function toggleWarmup(){ warmupOpen = !warmupOpen; renderWarmup(); }
+function toggleWarmupCheck(i){
+  warmupChecks[i] = !warmupChecks[i];
+  warmupOpen = true;
+  renderWarmup();
 }
 
-// ─── DIETA ───────────────────────────────────────────────────
-function renderDieta(comidas){
-  const c=document.getElementById('comidas-container');c.innerHTML='';
-  if(!comidas?.length){
-    document.getElementById('kcal-total').textContent='— kcal';
+function renderRutina(ejs){
+  renderWarmup();
+  var c=document.getElementById('ejercicios-container');
+  document.getElementById('rutina-header').textContent='🏋️ Rutina del día · Cargá peso, reps reales y RPE';
+  c.innerHTML='';
+  if(!ejs || !ejs.length){
+    c.innerHTML='<div style="text-align:center;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:40px 20px"><div style="font-size:40px;margin-bottom:12px">😴</div><div style="font-weight:800;font-size:16px;margin-bottom:8px">Sin rutina asignada</div><div style="color:var(--muted);font-size:13px">Tu entrenador todavía no cargó tu rutina.</div></div>';
     return;
   }
-  let total=0;comidas.forEach(m=>total+=Number(m.kcal)||0);
+  ejs.forEach(function(ej,idx){
+    var s=Number(ej.series)||3;
+    var pesoRef=ej.pesoRef||null;
+    if(!registroEjercicios[idx]) registroEjercicios[idx] = {series:{}, rpe:'', descanso:''};
+
+    var filasSeries='';
+    for(var i=0;i<s;i++){
+      var ph = pesoRef ? pesoRef : '';
+      var savedSerie = registroEjercicios[idx].series[i] || {};
+      filasSeries += '<div class="serie-row">'
+        + '<div class="serie-row-top">'
+        + '<div class="serie-label">S'+(i+1)+'</div>'
+        + '<div class="serie-field"><label>Peso (kg)</label><input type="number" placeholder="'+ph+'" value="'+(savedSerie.peso||'')+'" data-ej="'+idx+'" data-s="'+i+'" data-field="peso" oninput="onSerieInput(this)"></div>'
+        + '<div class="serie-field"><label>Reps</label><input type="number" placeholder="'+ej.reps+'" value="'+(savedSerie.reps||'')+'" data-ej="'+idx+'" data-s="'+i+'" data-field="reps" oninput="onSerieInput(this)"></div>'
+        + '</div>'
+        + '<div class="serie-note-row"><input class="serie-note-input" type="text" placeholder="📝 Nota — ej: la última costó más, técnica falló..." value="'+(savedSerie.nota||'')+'" data-ej="'+idx+'" data-s="'+i+'" data-field="nota" oninput="onSerieInput(this)"></div>'
+        + '</div>';
+    }
+
+    var thumb=ej.videoId
+      ?'<div class="video-thumb" onclick="openVideo(\''+ej.videoId+'\',\''+ej.nombre+'\')"><img src="https://img.youtube.com/vi/'+ej.videoId+'/hqdefault.jpg" onerror="this.parentNode.classList.add(\'no-video\');this.parentNode.innerHTML=\'▶️\'"><div class="play-overlay"><div class="play-icon">▶</div></div></div>'
+      :'<div class="video-thumb no-video">📷</div>';
+
+    var refBadge=pesoRef
+      ?'<span style="background:#f9731618;color:var(--accent);padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700;margin-left:6px">📌 Ref: '+pesoRef+' kg</span>'
+      :'';
+
+    c.innerHTML+='<div class="ex-card" data-exidx="'+idx+'">'
+      +'<div class="ex-header">'+thumb+'<div style="flex:1"><div class="ex-name">'+ej.nombre+refBadge+'</div><div class="ex-meta">📊 '+s+' series · 🔁 '+ej.reps+(ej.notas?' · '+ej.notas:'')+'</div></div></div>'
+      +filasSeries
+      +'<div class="ex-extra-row">'
+        +'<div class="ex-extra-field"><label>💪 RPE (esfuerzo 1-10)</label><select data-ej="'+idx+'" data-field="rpe" onchange="onSerieInput(this)"><option value="">Sin marcar</option><option value="6">6 — Fácil</option><option value="7">7 — Moderado</option><option value="8">8 — Difícil</option><option value="9">9 — Muy difícil</option><option value="10">10 — Al fallo</option></select></div>'
+        +'<div class="ex-extra-field"><label>⏱️ Descanso usado</label><select data-ej="'+idx+'" data-field="descanso" onchange="onSerieInput(this)"><option value="">Sin marcar</option><option value="60s">60 seg</option><option value="90s">90 seg</option><option value="2min">2 min</option><option value="3min">3 min</option><option value="3min+">Más de 3 min</option></select></div>'
+      +'</div>'
+      +'<div class="tonelaje-tag" id="tonelaje-'+idx+'"></div>'
+      +'<button class="ex-done-btn" onclick="markExDone(this,'+idx+')">✓ Marcar como completo</button>'
+      +'</div>';
+  });
+  Object.keys(registroEjercicios).forEach(function(idx){ updateTonelaje(idx); });
+}
+
+function onSerieInput(input){
+  var ej=input.dataset.ej, s=input.dataset.s, field=input.dataset.field;
+  if(!registroEjercicios[ej]) registroEjercicios[ej]={series:{},rpe:'',descanso:''};
+  if(field==='rpe' || field==='descanso'){
+    registroEjercicios[ej][field]=input.value;
+  } else {
+    if(!registroEjercicios[ej].series[s]) registroEjercicios[ej].series[s]={};
+    registroEjercicios[ej].series[s][field]=input.value;
+  }
+  updateTonelaje(ej);
+  autoSave();
+}
+
+function updateTonelaje(idx){
+  var reg = registroEjercicios[idx];
+  if(!reg) return;
+  var total=0;
+  Object.values(reg.series).forEach(function(s){
+    var p=Number(s.peso)||0, r=Number(s.reps)||0;
+    total += p*r;
+  });
+  var tag = document.getElementById('tonelaje-'+idx);
+  if(tag) tag.textContent = total>0 ? '🏋️ Tonelaje de este ejercicio: '+total.toLocaleString('es-AR')+' kg' : '';
+  var tHoy = document.getElementById('tonelaje-hoy');
+  if(tHoy) tHoy.textContent = calcTonelajeTotal().toLocaleString('es-AR')+' kg';
+}
+
+function calcTonelajeTotal(){
+  var total=0;
+  Object.values(registroEjercicios).forEach(function(reg){
+    Object.values(reg.series).forEach(function(s){
+      var p=Number(s.peso)||0, r=Number(s.reps)||0;
+      total += p*r;
+    });
+  });
+  return total;
+}
+
+function renderDieta(comidas){
+  var c=document.getElementById('comidas-container');c.innerHTML='';
+  if(!comidas||!comidas.length){ document.getElementById('kcal-total').textContent='— kcal'; return; }
+  var total=0;comidas.forEach(function(m){total+=Number(m.kcal)||0;});
   document.getElementById('kcal-total').textContent=total+' kcal';
-  // Estima macros si no vienen del backend (prot≈30%, carb≈45%, gras≈25%)
   document.getElementById('mac-prot').textContent=Math.round(total*0.30/4)+'g';
   document.getElementById('mac-carb').textContent=Math.round(total*0.45/4)+'g';
   document.getElementById('mac-gras').textContent=Math.round(total*0.25/9)+'g';
-  comidas.forEach(m=>{
-    const icon=m.comida?.match(/[\u{1F300}-\u{1FAFF}]/u)?.[0]||'🍴';
-    const name=(m.comida||'').replace(/[\u{1F300}-\u{1FAFF}]\s*/u,'');
-    c.innerHTML+=`<div class="meal-card"><div class="meal-icon">${icon}</div><div><div class="meal-name">${name}</div><div class="meal-foods">${m.alimentos}</div><div class="meal-kcal">~${m.kcal} kcal</div></div></div>`;
+  comidas.forEach(function(m){
+    var icon=(m.comida||'').match(/[\u{1F300}-\u{1FAFF}]/u);
+    icon = icon ? icon[0] : '🍴';
+    var name=(m.comida||'').replace(/[\u{1F300}-\u{1FAFF}]\s*/u,'');
+    c.innerHTML+='<div class="meal-card"><div class="meal-icon">'+icon+'</div><div><div class="meal-name">'+name+'</div><div class="meal-foods">'+m.alimentos+'</div><div class="meal-kcal">~'+m.kcal+' kcal</div></div></div>';
   });
 }
 
-// ─── CHECKLIST ───────────────────────────────────────────────
 function setChk(k,v){checks[k]=v;document.getElementById('chk-'+k).classList.toggle('done',v);document.getElementById('lbl-'+k).classList.toggle('done',v);}
 function toggleCheck(k){setChk(k,!checks[k]);updateProgress();autoSave();}
 function updateProgress(){
-  const done=Object.values(checks).filter(Boolean).length,total=Object.keys(checks).length,pct=Math.round(done/total*100);
+  var done=Object.values(checks).filter(Boolean).length,total=Object.keys(checks).length,pct=Math.round(done/total*100);
   document.getElementById('prog-ring').style.strokeDashoffset=188-(188*pct/100);
   document.getElementById('prog-pct').textContent=pct+'%';
   document.getElementById('prog-sub').textContent=done+' de '+total+' tareas';
   document.getElementById('prog-title').textContent=pct===100?'¡Día perfecto! 🎉':pct>=50?'Vas muy bien 💪':'Completá tu día';
 }
 
-// ─── WATER ───────────────────────────────────────────────────
 function initWater(){
-  const t=document.getElementById('water-track');t.innerHTML='';
-  for(let i=0;i<8;i++){
-    const g=document.createElement('div');g.className='water-glass';g.textContent='💧';
-    g.onclick=()=>{waterCount=i<waterCount?i:i+1;updateWaterUI();if(waterCount>=8&&!checks.agua)toggleCheck('agua');else autoSave();};
+  var t=document.getElementById('water-track');t.innerHTML='';
+  for(var i=0;i<8;i++){
+    var g=document.createElement('div');g.className='water-glass';g.textContent='💧';
+    (function(i){
+      g.onclick=function(){waterCount=i<waterCount?i:i+1;updateWaterUI();if(waterCount>=8&&!checks.agua)toggleCheck('agua');else autoSave();};
+    })(i);
     t.appendChild(g);
   }
 }
 function updateWaterUI(){
-  document.querySelectorAll('.water-glass').forEach((g,i)=>g.classList.toggle('filled',i<waterCount));
+  document.querySelectorAll('.water-glass').forEach(function(g,i){g.classList.toggle('filled',i<waterCount);});
   document.getElementById('water-label').textContent=waterCount+' / 8 vasos — '+(waterCount*250)+'ml';
 }
 
-// ─── PESO ────────────────────────────────────────────────────
 function saveWeight(){
-  const v=document.getElementById('weight-val').value;if(!v)return;
+  var v=document.getElementById('weight-val').value;if(!v)return;
   document.getElementById('weight-saved').style.display='block';
   if(!checks.peso){setChk('peso',true);updateProgress();}
   autoSave();
 }
 
-// ─── EJERCICIOS ──────────────────────────────────────────────
 function markExDone(btn,idx){
   btn.classList.toggle('completed');
   btn.innerHTML=btn.classList.contains('completed')?'✅ Completado':'✓ Marcar como completo';
-  if([...document.querySelectorAll('.ex-done-btn')].every(b=>b.classList.contains('completed'))&&!checks.rutina){setChk('rutina',true);updateProgress();}
+  if([...document.querySelectorAll('.ex-done-btn')].every(function(b){return b.classList.contains('completed');})&&!checks.rutina){setChk('rutina',true);updateProgress();}
   autoSave();
 }
 function finishWorkout(){
@@ -565,148 +667,81 @@ function finishWorkout(){
   autoSave();
 }
 
-// ─── AUTO-SAVE FIREBASE ──────────────────────────────────────
-let saveTimer=null;
+var saveTimer=null;
 function autoSave(){
   if(!db||!currentUser)return;
   setSyncStatus('syncing','💾 Guardando...');
   clearTimeout(saveTimer);
-  saveTimer=setTimeout(()=>{
+  saveTimer=setTimeout(function(){
     db.collection('tracking').doc(currentUser.usuario+'_'+todayStr).set({
       usuario:currentUser.usuario,fecha:todayStr,
       peso:document.getElementById('weight-val').value||'',
       agua:waterCount,rutina:checks.rutina,dieta:checks.dieta,
       descanso:checks.descanso,suplementos:checks.suplementos,
-      pesosEj:JSON.stringify(pesosEj),timestamp:firebase.firestore.FieldValue.serverTimestamp()
-    }).then(()=>setSyncStatus('ok','✅ Guardado')).catch(()=>setSyncStatus('ok','⚠️ Error'));
-  },1500);
+      registroEjercicios:JSON.stringify(registroEjercicios),
+      tonelajeTotal:calcTonelajeTotal(),
+      warmupCompletado:Object.values(warmupChecks).filter(Boolean).length,
+      timestamp:firebase.firestore.FieldValue.serverTimestamp()
+    }).then(function(){setSyncStatus('ok','✅ Guardado');}).catch(function(){setSyncStatus('ok','⚠️ Error');});
+  },1200);
 }
 
-// ─── CALENDARIO ──────────────────────────────────────────────
-const MESES_ES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-
-// Datos demo del calendario (para modo sin Firebase)
-function genDemoCalData(month,year){
-  const data={},days=new Date(year,month+1,0).getDate(),hoy=new Date();
-  for(let d=1;d<=days;d++){
-    const fecha=new Date(year,month,d);
-    if(fecha>hoy) continue; // días futuros no tienen dato
-    const dow=fecha.getDay();
-    if(dow===0||dow===6) continue; // fines de semana descanso
-    const r=Math.random();
-    data[d]=r<0.65?'done':r<0.80?'partial':r<0.90?'missed':'normal';
-  }
-  return data;
-}
-
-// Cache de datos de calendario por mes
-const calCache={};
-
-async function buildCalendar(){
+var MESES_ES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+function buildCalendar(){
   document.getElementById('month-label').textContent=MESES_ES[calMonth]+' '+calYear;
-  const grid=document.getElementById('month-grid');grid.innerHTML='';
-  ['D','L','M','X','J','V','S'].forEach(d=>{
-    const el=document.createElement('div');el.className='mcal-head';el.textContent=d;grid.appendChild(el);
-  });
-  const first=new Date(calYear,calMonth,1).getDay();
-  const days=new Date(calYear,calMonth+1,0).getDate();
-  const hoy=new Date();
-  const key=calYear+'-'+calMonth;
-
-  // Usa cache si existe, sino carga
-  if(!calCache[key]){
-    if(db && currentUser){
-      // Carga tracking real del mes desde Firebase
-      const inicio=new Date(calYear,calMonth,1).toISOString().split('T')[0];
-      const fin=new Date(calYear,calMonth+1,0).toISOString().split('T')[0];
-      try{
-        const snap=await db.collection('tracking')
-          .where('usuario','==',currentUser.usuario)
-          .where('fecha','>=',inicio)
-          .where('fecha','<=',fin)
-          .get();
-        const data={};
-        snap.forEach(doc=>{
-          const d=doc.data();
-          const dia=parseInt(d.fecha.split('-')[2]);
-          const completado=(d.rutina&&d.dieta)?'done':d.rutina||d.dieta?'partial':'missed';
-          data[dia]=completado;
-        });
-        calCache[key]=data;
-      }catch(e){ calCache[key]=genDemoCalData(calMonth,calYear); }
-    } else {
-      calCache[key]=genDemoCalData(calMonth,calYear);
-    }
+  var grid=document.getElementById('month-grid');grid.innerHTML='';
+  ['D','L','M','X','J','V','S'].forEach(function(d){var el=document.createElement('div');el.className='mcal-head';el.textContent=d;grid.appendChild(el);});
+  var first=new Date(calYear,calMonth,1).getDay(),days=new Date(calYear,calMonth+1,0).getDate();
+  var hoy=new Date();
+  for(var i=0;i<first;i++){var el=document.createElement('div');el.className='mcal-day empty';grid.appendChild(el);}
+  for(var d=1;d<=days;d++){
+    var el=document.createElement('div');
+    var isToday=hoy.getDate()===d&&hoy.getMonth()===calMonth&&hoy.getFullYear()===calYear;
+    el.className='mcal-day '+(isToday?'today':'normal');el.textContent=d;grid.appendChild(el);
   }
-
-  const data=calCache[key];
-
-  for(let i=0;i<first;i++){const el=document.createElement('div');el.className='mcal-day empty';grid.appendChild(el);}
-  for(let d=1;d<=days;d++){
-    const el=document.createElement('div');
-    const isToday=hoy.getDate()===d&&hoy.getMonth()===calMonth&&hoy.getFullYear()===calYear;
-    const status=data[d]||'normal';
-    el.className='mcal-day '+(isToday?'today '+status:status);
-    el.textContent=d;
-    el.title=status==='done'?'✅ Completo':status==='partial'?'🟡 Parcial':status==='missed'?'❌ No entrenó':'';
-    grid.appendChild(el);
-  }
-
-  // Stats del mes
-  const vals=Object.values(data);
-  const done=vals.filter(v=>v==='done').length;
-  const partial=vals.filter(v=>v==='partial').length;
-  const total=vals.filter(v=>v!=='normal').length;
-  const adh=total>0?Math.round((done+partial*0.5)/total*100):0;
-  document.getElementById('ms-comp').textContent=done;
-  document.getElementById('ms-adh').textContent=adh+'%';
-  document.getElementById('ms-peso').textContent=currentUser?.pesoInicial?currentUser.pesoInicial+' kg':'—';
+  document.getElementById('ms-comp').textContent='—';
+  document.getElementById('ms-adh').textContent='—';
+  document.getElementById('ms-peso').textContent=currentUser&&currentUser.pesoInicial?currentUser.pesoInicial+' kg':'—';
 }
-
 function prevMonth(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}buildCalendar();}
 function nextMonth(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}buildCalendar();}
 
-// ─── MENSAJE Y CONTRASEÑA ────────────────────────────────────
 function sendMessage(){
-  const msg=document.getElementById('msg-entrenador').value.trim();if(!msg)return;
+  var msg=document.getElementById('msg-entrenador').value.trim();if(!msg)return;
   if(db) db.collection('mensajes').add({usuario:currentUser.usuario,mensaje:msg,leido:false,timestamp:firebase.firestore.FieldValue.serverTimestamp()});
   document.getElementById('msg-sent').style.display='block';
   document.getElementById('msg-entrenador').value='';
-  setTimeout(()=>document.getElementById('msg-sent').style.display='none',3000);
+  setTimeout(function(){document.getElementById('msg-sent').style.display='none';},3000);
 }
 
 function changePassword(){
-  const actual=document.getElementById('pass-actual').value;
-  const nueva=document.getElementById('pass-nueva').value;
-  const res=document.getElementById('pass-result');
+  var actual=document.getElementById('pass-actual').value;
+  var nueva=document.getElementById('pass-nueva').value;
+  var res=document.getElementById('pass-result');
   if(!actual||!nueva){res.style.color='var(--red)';res.textContent='❌ Completá ambos campos';res.style.display='block';return;}
   if(nueva.length<4){res.style.color='var(--red)';res.textContent='❌ Mínimo 4 caracteres';res.style.display='block';return;}
-  // Verifica contra demo o Firebase
-  const demoPass=DEMO[currentUser?.usuario]?.pass;
+  var demoPass=DEMO[currentUser?currentUser.usuario:null]?DEMO[currentUser.usuario].pass:null;
   if(demoPass && demoPass!==actual){res.style.color='var(--red)';res.textContent='❌ Contraseña actual incorrecta';res.style.display='block';return;}
   if(db) db.collection('clientes').doc(currentUser.usuario).update({pass:nueva});
-  if(DEMO[currentUser?.usuario]) DEMO[currentUser.usuario].pass=nueva;
+  if(DEMO[currentUser.usuario]) DEMO[currentUser.usuario].pass=nueva;
   res.style.color='var(--green)';res.textContent='✅ Contraseña actualizada';res.style.display='block';
   document.getElementById('pass-actual').value='';document.getElementById('pass-nueva').value='';
-  setTimeout(()=>res.style.display='none',3000);
+  setTimeout(function(){res.style.display='none';},3000);
 }
 
-// ─── VIDEO ───────────────────────────────────────────────────
 function openVideo(id,title){document.getElementById('vid-title').textContent=title;document.getElementById('yt-frame').src='https://www.youtube.com/embed/'+id+'?autoplay=1';document.getElementById('video-modal').classList.add('open');}
 function closeVideo(){document.getElementById('video-modal').classList.remove('open');document.getElementById('yt-frame').src='';}
 
-// ─── TABS ────────────────────────────────────────────────────
-const TABS=['home','rutina','semana','dieta','progreso','perfil'];
-const TITLES={home:'🏠 Inicio',rutina:'🏋️ Rutina de hoy',semana:'📅 Esta semana',dieta:'🥗 Mi dieta',progreso:'📈 Mi progreso',perfil:'👤 Mi perfil'};
+var TABS=['home','rutina','semana','dieta','progreso','perfil'];
+var TITLES={home:'🏠 Inicio',rutina:'🏋️ Rutina de hoy',semana:'📅 Esta semana',dieta:'🥗 Mi dieta',progreso:'📈 Mi progreso',perfil:'👤 Mi perfil'};
 function showTab(t){
-  TABS.forEach(id=>{const el=document.getElementById('tab-'+id);if(el)el.style.display=id===t?'block':'none';});
-  document.querySelectorAll('.bnav-item').forEach((el,i)=>el.classList.toggle('active',['home','rutina','semana','dieta','progreso'][i]===t));
+  TABS.forEach(function(id){var el=document.getElementById('tab-'+id);if(el)el.style.display=id===t?'block':'none';});
+  document.querySelectorAll('.bnav-item').forEach(function(el,i){el.classList.toggle('active',['home','rutina','semana','dieta','progreso'][i]===t);});
   document.getElementById('top-title').textContent=TITLES[t]||t;
 }
 
-// ─── LOGOUT ──────────────────────────────────────────────────
 function doLogout(){
-  currentUser=null;checks={rutina:false,peso:false,agua:false,dieta:false,descanso:false,suplementos:false};waterCount=0;pesosEj={};
+  currentUser=null;checks={rutina:false,peso:false,agua:false,dieta:false,descanso:false,suplementos:false};waterCount=0;registroEjercicios={};warmupChecks={};
   document.getElementById('app').style.display='none';
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('inp-user').value='';document.getElementById('inp-pass').value='';
