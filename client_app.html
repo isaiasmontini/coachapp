@@ -531,7 +531,7 @@ function renderRutina(ejs){
   ejs.forEach(function(ej,idx){
     var s=Number(ej.series)||3;
     var pesoRef=ej.pesoRef||null;
-    if(!registroEjercicios[idx]) registroEjercicios[idx] = {series:{}, rpe:'', descanso:''};
+    if(!registroEjercicios[idx]) registroEjercicios[idx] = {series:{}, rpe:''};
 
     var filasSeries='';
     for(var i=0;i<s;i++){
@@ -555,12 +555,26 @@ function renderRutina(ejs){
       ?'<span style="background:#f9731618;color:var(--accent);padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700;margin-left:6px">📌 Ref: '+pesoRef+' kg</span>'
       :'';
 
+    var rpeObjetivo = ej.rpeObjetivo || '';
+    var descansoPrescrito = ej.descansoPrescrito || '';
+    var rpeOptions = ['','6','7','8','9','10'].map(function(v){
+      var label = v==='' ? 'Sin marcar' : v + (v==='10'?' — Al fallo':v>='9'?' — Muy difícil':v>='8'?' — Difícil':v>='7'?' — Moderado':' — Fácil');
+      var savedRpe = registroEjercicios[idx].rpe||'';
+      return '<option value="'+v+'"'+(savedRpe===v?' selected':'')+'>'+label+'</option>';
+    }).join('');
+
+    var descansoTexto = descansoPrescrito
+      ? '<div class="ex-extra-field"><label>⏱️ Descanso prescrito</label><div style="background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:7px 8px;color:var(--accent);font-size:13px;font-weight:800;text-align:center">'+descansoPrescrito+'</div></div>'
+      : '<div class="ex-extra-field"><label>⏱️ Descanso</label><div style="background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:7px 8px;color:var(--muted);font-size:13px;text-align:center">Sin definir</div></div>';
+
+    var rpeLabel = rpeObjetivo ? '💪 Tu RPE (objetivo: '+rpeObjetivo+')' : '💪 Tu RPE (esfuerzo 1-10)';
+
     c.innerHTML+='<div class="ex-card" data-exidx="'+idx+'">'
       +'<div class="ex-header">'+thumb+'<div style="flex:1"><div class="ex-name">'+ej.nombre+refBadge+'</div><div class="ex-meta">📊 '+s+' series · 🔁 '+ej.reps+(ej.notas?' · '+ej.notas:'')+'</div></div></div>'
       +filasSeries
       +'<div class="ex-extra-row">'
-        +'<div class="ex-extra-field"><label>💪 RPE (esfuerzo 1-10)</label><select data-ej="'+idx+'" data-field="rpe" onchange="onSerieInput(this)"><option value="">Sin marcar</option><option value="6">6 — Fácil</option><option value="7">7 — Moderado</option><option value="8">8 — Difícil</option><option value="9">9 — Muy difícil</option><option value="10">10 — Al fallo</option></select></div>'
-        +'<div class="ex-extra-field"><label>⏱️ Descanso usado</label><select data-ej="'+idx+'" data-field="descanso" onchange="onSerieInput(this)"><option value="">Sin marcar</option><option value="60s">60 seg</option><option value="90s">90 seg</option><option value="2min">2 min</option><option value="3min">3 min</option><option value="3min+">Más de 3 min</option></select></div>'
+        +'<div class="ex-extra-field"><label>'+rpeLabel+'</label><select data-ej="'+idx+'" data-field="rpe" onchange="onSerieInput(this)">'+rpeOptions+'</select></div>'
+        +descansoTexto
       +'</div>'
       +'<div class="tonelaje-tag" id="tonelaje-'+idx+'"></div>'
       +'<button class="ex-done-btn" onclick="markExDone(this,'+idx+')">✓ Marcar como completo</button>'
@@ -571,8 +585,8 @@ function renderRutina(ejs){
 
 function onSerieInput(input){
   var ej=input.dataset.ej, s=input.dataset.s, field=input.dataset.field;
-  if(!registroEjercicios[ej]) registroEjercicios[ej]={series:{},rpe:'',descanso:''};
-  if(field==='rpe' || field==='descanso'){
+  if(!registroEjercicios[ej]) registroEjercicios[ej]={series:{},rpe:''};
+  if(field==='rpe'){
     registroEjercicios[ej][field]=input.value;
   } else {
     if(!registroEjercicios[ej].series[s]) registroEjercicios[ej].series[s]={};
