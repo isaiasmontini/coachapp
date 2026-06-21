@@ -68,7 +68,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
 .back-btn{display:flex;align-items:center;gap:8px;color:var(--muted);cursor:pointer;font-size:13px;font-weight:600;width:fit-content;padding:6px 0}
 .back-btn:hover{color:var(--accent)}
 .clg{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;flex-shrink:0}
-.mini-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+.mini-stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px}
 .ms{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center}
 .ms-val{font-size:20px;font-weight:800;color:var(--accent)}
 .ms-lab{font-size:11px;color:var(--muted);margin-top:4px;font-weight:600}
@@ -182,11 +182,12 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
     <div><button class="btn btn-primary" onclick="openModal()">👤➕ Nuevo cliente</button></div>
   </div>
   <div class="content">
-    <div class="grid4">
+    <div class="grid4" style="grid-template-columns:repeat(5,1fr)">
       <div class="stat-card g"><div class="stat-label">Completaron hoy</div><div class="stat-val">12</div><div class="stat-sub">de 18 activos</div></div>
       <div class="stat-card o"><div class="stat-label">Adherencia semanal</div><div class="stat-val">78%</div><div class="stat-sub">↑ 4% vs semana anterior</div></div>
       <div class="stat-card r"><div class="stat-label">Sin actividad hoy</div><div class="stat-val">6</div><div class="stat-sub">Requieren seguimiento</div></div>
       <div class="stat-card b"><div class="stat-label">Tareas pendientes</div><div class="stat-val">4</div><div class="stat-sub">2 de alta prioridad</div></div>
+      <div class="stat-card o"><div class="stat-label">🏋️ Tonelaje hoy (todos)</div><div class="stat-val" id="dash-tonelaje">—</div><div class="stat-sub">kg movidos por tus clientes</div></div>
     </div>
     <div class="grid2">
       <div class="card">
@@ -247,6 +248,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,san
         <div class="ms"><div class="ms-val" style="color:var(--green)">+4 kg</div><div class="ms-lab">💪 Progreso</div></div>
         <div class="ms"><div class="ms-val">32 sem</div><div class="ms-lab">📅 En programa</div></div>
         <div class="ms"><div class="ms-val">8</div><div class="ms-lab">🏆 PRs mes</div></div>
+        <div class="ms"><div class="ms-val" id="det-tonelaje" style="color:var(--accent)">—</div><div class="ms-lab">🏋️ Tonelaje hoy</div></div>
       </div>
       <div class="tabs">
         <div class="tab active" onclick="T(this,'t-semana')">📅 Semana</div>
@@ -483,6 +485,19 @@ fbScript1.onload = function(){
 };
 document.head.appendChild(fbScript1);
 
+async function loadDashTonelaje(){
+  var el = document.getElementById('dash-tonelaje');
+  if(!el || !db) return;
+  try {
+    var hoy = new Date().toISOString().split('T')[0];
+    var snap = await db.collection('tracking').where('fecha','==',hoy).get();
+    var total = 0;
+    snap.forEach(function(d){ total += Number(d.data().tonelajeTotal)||0; });
+    el.textContent = total.toLocaleString('es-AR')+' kg';
+  } catch(e){ el.textContent = '—'; }
+}
+setTimeout(loadDashTonelaje, 1500);
+
 async function api(p){ return {ok:false}; }
 
 var VIEWS = ['dashboard','clients','tasks','routines','diet','reports'];
@@ -526,6 +541,23 @@ function openDetail(id) {
   document.getElementById('client-detail').style.display = 'block';
   var ft = document.querySelector('#client-detail .tab');
   T(ft, 't-semana');
+  loadTonelajeHoy(id);
+}
+
+async function loadTonelajeHoy(usuario){
+  var el = document.getElementById('det-tonelaje');
+  if(!el) return;
+  el.textContent = '...';
+  if(!db){ el.textContent = '—'; return; }
+  try {
+    var hoy = new Date().toISOString().split('T')[0];
+    var snap = await db.collection('tracking').doc(usuario+'_'+hoy).get();
+    if(snap.exists && snap.data().tonelajeTotal){
+      el.textContent = Number(snap.data().tonelajeTotal).toLocaleString('es-AR')+' kg';
+    } else {
+      el.textContent = '0 kg';
+    }
+  } catch(e){ el.textContent = '—'; }
 }
 
 function closeDetail() {
